@@ -1,5 +1,5 @@
 # Spark Java Web Crawler
-Web Crawler on a Spark Java Micro Framework
+Web Crawler on a Spark Java Micro Framework - A Docker Microservice Example
 
 Full documentation of the framework: http://sparkjava.com/
 
