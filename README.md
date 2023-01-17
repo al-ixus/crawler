@@ -29,8 +29,10 @@ Also add the following command line arguments to the docker run command:
 3) -e PRETTY_JAY=<NUM>
 4) -v "$HOME/.m2":/root/.m2
 
-MAX_THREADS specifies the number of working crawler threads. MAX_RESULTS will limit the number of pages to crawl. PRETTY_JAY will enable the pretty formatting of the json responses. The last command line argument, -v, will tell Maven to use cached libraries, instead of downloading full packages during every build.
- 
+MAX_THREADS specifies the number of working crawler threads. MAX_RESULTS will limit the number of pages to crawl. PRETTY_JAY will enable the pretty formatting of the json responses. The last command line argument, -v, will tell Maven to use cached libraries, instead of downloading full packages during every build. Also, you can set the environment variables in the Dockerfile such:
+
+ENV <<variable_name>> <<variable_value>>
+
 Once the crawler is started, it can be reached on a port 4567. The following is a POST request to the path "/crawl", json body provides keyword to search for:
 
 -----------------------------------------
