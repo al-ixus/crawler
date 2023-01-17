@@ -70,6 +70,7 @@ public class Main {
 				else   // we have an error message..
 					res.status(400);
 
+
 				if(Globals.isPrettyJay())
 					resp = JsonOps.jsonPretty(resp);
 				
@@ -88,12 +89,15 @@ public class Main {
 				
 				if(resp != null)  // we have an error message..
 					res.status(400);
-				else
+				else {
+					ConfigChangesExecute(body);
+					
 					resp = "{ \"resp\" : \"well done\" }";
-				
-				if(Globals.isPrettyJay())
-					resp = JsonOps.jsonPretty(resp);
-				
+
+					if(Globals.isPrettyJay())
+						resp = JsonOps.jsonPretty(resp);
+				}
+					
 				res.header("Content-Length", Integer.toString(resp.length()));
 				
 				
@@ -204,13 +208,36 @@ public class Main {
 
 			srchKey = JsonOps.getValueByName(bdy, "target");
 
-			if(srchKey == null) {
-				resp = "{\"status\":400,\"message\":\"field \"target\" is required}";			
+			if(srchKey != null) {
+				String id = Globals.getAppInstanceId();
+				
+				if(id.equals(srchKey) == false)
+					resp = "{\"status\":400,\"message\":\"trying to address a wrong target\"}";
+			}
+			else {
+				resp = "{\"status\":400,\"message\":\"field \"target\" is required}";
 			}
 		}
 
 
 		return resp;
+	}
+
+
+	private static void ConfigChangesExecute(String body) {
+
+		String bdy = body;
+		String pjay = null;
+
+
+		// make changes to json formating setting
+		
+		pjay = JsonOps.getValueByName(bdy, "pjay");
+
+		if(pjay != null) {
+			Globals.setPrettyJay(pjay);
+		}
+
 	}
 	
 	
